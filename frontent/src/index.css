@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ql-editor {
+  min-height: 600px;
+  font-size: 18px;
+  line-height: 1.7;
+  padding: 20px;
+}

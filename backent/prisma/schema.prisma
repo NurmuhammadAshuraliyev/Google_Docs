@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  username     String   @unique
+  password     String
+  createdAt    DateTime @default(now())
+  notes        Note[]   @relation("NoteOwner")
+  collaborations Collaboration[]
+  versions     Version[]
+  comments Comment[] 
+
+  @@map("users")
+}
+
+model Note {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     Json     
+  ownerId     Int
+  owner       User     @relation("NoteOwner", fields: [ownerId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  collaborators Collaboration[]
+  versions      Version[]
+  comments Comment[] 
+
+  @@map("notes")
+}
+
+model Collaboration {
+  id     Int  @id @default(autoincrement())
+  noteId Int
+  userId Int
+  role   Role @default(EDITOR)
+
+  note Note @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([noteId, userId])
+  @@map("collaborations")
+}
+
+model Version {
+  id        Int      @id @default(autoincrement())
+  noteId    Int
+  content   Json
+  version   Int
+  changedBy Int
+  changedAt DateTime @default(now())
+
+  note Note @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [changedBy], references: [id])
+
+  @@map("versions")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  noteId    Int
+  userId    Int
+  content   String
+  createdAt DateTime @default(now())
+
+  note Note @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("comments")
+}
+
+enum Role {
+  OWNER
+  EDITOR
+  VIEWER
+}
