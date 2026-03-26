@@ -15,7 +15,7 @@ Real-time collaborative notes ilovasi uchun backend qismi (Node.js + Express + P
 ### 1. Loyihani klon qilish
 
 ```bash
-git clone https://github.com/yourusername/collabdocs.git
+git clone https://github.com/NurmuhammadAshuraliyev/Google_Docs
 cd collabdocs/backend
 
 2. Kerakli paketlarni o‘rnatish

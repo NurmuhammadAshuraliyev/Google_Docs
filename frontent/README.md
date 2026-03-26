@@ -16,7 +16,7 @@ Real-time collaborative notes ilovasi uchun frontend qismi (React + Vite).
 ### 1. Loyihani klon qilish
 
 ```bash
-git clone https://github.com/yourusername/collabdocs.git
+git clone https://github.com/NurmuhammadAshuraliyev/Google_Docs
 cd collabdocs/frontend
 
 
